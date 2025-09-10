@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { OlvidarContrasenaComponent } from './olvidar-contrasena.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,     
-    IonicModule,    
-    RouterModule.forChild([{ path: '', component: HomePage }])
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild([{ path: '', component: OlvidarContrasenaComponent }])
   ],
-  declarations: [HomePage]
+  declarations: [OlvidarContrasenaComponent]
 })
-export class HomePageModule {}
+export class OlvidarContrasenaPageModule {}

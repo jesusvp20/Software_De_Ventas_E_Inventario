@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="shield-checkmark" slot="start"></ion-icon>
+      Panel de Administración
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding login-bg">
+  <div class="login-card">
+    <div class="welcome-section ion-text-center">
+      <ion-icon name="shield-checkmark" size="large" color="primary"></ion-icon>
+      <h2>¡Bienvenido!</h2>
+      <p class="subtitle">Accede al menú de administración</p>
+    </div>
+
+    <!-- Email -->
+    <ion-item lines="full" class="input-item">
+      <ion-icon name="mail" slot="start" color="medium"></ion-icon>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input 
+        type="email" 
+        [(ngModel)]="email" 
+        required
+        placeholder="administrador@correo.com"
+        autocomplete="email"
+        enterkeyhint="next">
+      </ion-input>
+    </ion-item>
+
+    <!-- Password -->
+    <ion-item lines="full" class="input-item">
+      <ion-icon name="lock-closed" slot="start" color="medium"></ion-icon>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input 
+        type="password" 
+        [(ngModel)]="password" 
+        required
+        placeholder="Tu contraseña"
+        autocomplete="current-password"
+        enterkeyhint="done"
+        (keyup.enter)="login()">
+      </ion-input>
+    </ion-item>
+
+    <ion-card class="access-info-card">
+      <ion-card-content>
+        <div class="info-header">
+          <ion-icon name="information-circle" color="primary"></ion-icon>
+          <span class="info-title">Acceso restringido</span>
+        </div>
+        <p class="info-text">
+          Solo las cuentas de administrador pueden acceder a este sistema.
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button 
+      expand="block" 
+      class="ion-margin-top login-btn" 
+      color="success" 
+      (click)="login()"
+      [disabled]="!email || !password">
+      <ion-icon name="log-in" slot="start"></ion-icon>
+      Iniciar Sesión
+    </ion-button>
+
+    <!-- Recuperar contraseña -->
+    <div class="forgot-password ion-text-center ion-margin-top">
+      <ion-button 
+        fill="clear" 
+        size="small" 
+        color="medium"
+        (click)="resetPassword()">
+        <ion-icon name="key" slot="start"></ion-icon>
+        ¿Olvidaste tu contraseña?
+      </ion-button>
+    </div>
+
+    <div class="separator">
+      <div class="separator-line"></div>
+      <span class="separator-text">¿No tienes cuenta?</span>
+      <div class="separator-line"></div>
+    </div>
+
+    <!-- Crear cuenta -->
+    <ion-button 
+      expand="block" 
+      class="ion-margin-top register-btn" 
+      fill="outline" 
+      color="primary"
+      (click)="register()">
+      <ion-icon name="person-add" slot="start"></ion-icon>
+      Crear Cuenta de Administrador
+    </ion-button>
+
+    <div class="footer-info ion-text-center ion-margin-top">
+      <p class= "footer-text"> Gestion de inventario todos los derechos reservados @2025</p>
+    </div>
+  </div>
+</ion-content>
+

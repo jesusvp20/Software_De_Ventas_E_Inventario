@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, Injector, runInInjectionContext } from '@angular/core';
 import { 
   Auth, 
   createUserWithEmailAndPassword, 
@@ -11,10 +11,10 @@ import {
   Firestore, 
   doc, 
   setDoc, 
-  getDoc 
+  docData 
 } from '@angular/fire/firestore';
 import { authState } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,29 +23,32 @@ export class AutService {
 
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
+  private injector: Injector = inject(Injector);
 
   // Registrar usuario
   async register(email: string, password: string, name: string, role: string = 'admin') {
-    try {
-      const cred = await createUserWithEmailAndPassword(this.auth, email, password);
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        const cred = await createUserWithEmailAndPassword(this.auth, email, password);
 
-      if (cred.user) {
-        // Guardar nombre en el perfil de Firebase Auth
-        await updateProfile(cred.user, { displayName: name });
+        if (cred.user) {
+          // Guardar nombre en el perfil de Firebase Auth
+          await updateProfile(cred.user, { displayName: name });
 
-        // Guardar datos en Firestore
-        await setDoc(doc(this.firestore, 'users', cred.user.uid), {
-          uid: cred.user.uid,
-          email,
-          name,
-          role
-        });
+          // Guardar datos en Firestore
+          await setDoc(doc(this.firestore, 'users', cred.user.uid), {
+            uid: cred.user.uid,
+            email,
+            name,
+            role
+          });
+        }
+
+        return cred;
+      } catch (error) {
+        throw error;
       }
-
-      return cred;
-    } catch (error) {
-      throw error;
-    }
+    });
   }
 
   // Iniciar sesión
@@ -84,19 +87,21 @@ export class AutService {
 
   // Verificar si el usuario es administrador
   async isAdmin(uid: string): Promise<boolean> {
-    try {
-      const userRef = doc(this.firestore, 'users', uid);
-      const userSnap = await getDoc(userRef);
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        const userRef = doc(this.firestore, 'users', uid);
+        const userData$ = docData(userRef);
+        const userData = await firstValueFrom(userData$);
 
-      if (userSnap.exists()) {
-        const userData = userSnap.data() as any;
-        return userData.role === 'admin';
+        if (userData) {
+          return (userData as any).role === 'admin';
+        }
+
+        return false;
+      } catch (error) {
+        console.error('Error verificando rol:', error);
+        return false;
       }
-
-      return false;
-    } catch (error) {
-      console.error('Error verificando rol:', error);
-      return false;
-    }
+    });
   }
 }

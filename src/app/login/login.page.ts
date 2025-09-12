@@ -36,7 +36,7 @@ export class LoginPage {
       const cred = await this.auth.login(this.email, this.password);
       
       if (cred.user) {
-        // Usar el método mejorado del servicio
+        // Verificar el rol del usuario
         const isAdmin = await this.auth.isAdmin(cred.user.uid);
 
         if (isAdmin) {
@@ -52,12 +52,12 @@ export class LoginPage {
             'warning'
           );
         }
-      }
-    } catch (err: any) {
-      await loading.dismiss();
-      const mensaje = this.getErrorMessage(err.code);
-      await this.showAlert('Error de acceso', mensaje, 'error');
-    }
+       }
+     } catch (err: any) {
+       await loading.dismiss();
+       const mensaje = this.getErrorMessage(err.code);
+       await this.showAlert('Error de acceso', mensaje, 'error');
+     }
   }
  
   //manejo de errores

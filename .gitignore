@@ -52,9 +52,6 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Archivos de Firebase environments
-src/environments/environment.ts
-src/environments/environment.prod.ts
 
 
 

@@ -1,4 +1,4 @@
-// File: C:\Users\ASUS\Music\StoreManager Pro\StoreManager Pro - Backend\src\app\api\auth\dev-login\route.ts
+// File: C:\Users\deike\Software_De_Ventas_E_Inventario\StoreManager Pro - Backend\src\app\api\auth\dev-login\route.ts
 import * as entry from '../../../../../../src/app/api/auth/dev-login/route.js'
 import type { NextRequest } from 'next/server.js'
 

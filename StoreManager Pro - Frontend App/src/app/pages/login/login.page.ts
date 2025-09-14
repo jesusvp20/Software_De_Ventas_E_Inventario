@@ -8,6 +8,7 @@ import { LoadingController } from '@ionic/angular';
   standalone: false,
   selector: 'app-login',
   templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
   email: string = '';

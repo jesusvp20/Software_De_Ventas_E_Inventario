@@ -8,6 +8,7 @@ import { LoadingController } from '@ionic/angular';
   standalone: false,
   selector: 'app-register',
   templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
   email: string = '';

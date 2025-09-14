@@ -1,0 +1,15 @@
+<div class="empty-state">
+  <div class="empty-state-content">
+    <ion-icon [name]="icon" class="empty-state-icon"></ion-icon>
+    <h3 class="empty-state-title">{{ title }}</h3>
+    <p class="empty-state-message">{{ message }}</p>
+    
+    <ion-button 
+      *ngIf="showAction && actionText" 
+      fill="outline" 
+      (click)="onActionClick()"
+      class="empty-state-action">
+      {{ actionText }}
+    </ion-button>
+  </div>
+</div>

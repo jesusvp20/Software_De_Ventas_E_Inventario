@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <i class="bi bi-shield-lock-fill me-2"></i>
+      Crear Cuenta Administrador
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding register-bg">
+  <div class="register-card">
+    <div class="welcome-section ion-text-center">
+      <ion-icon name="shield-checkmark" size="large" color="primary"></ion-icon>
+      <h2>¡Bienvenido! 👋</h2>
+      <p class="subtitle">Crea tu cuenta de administrador</p>
+    </div>
+
+    <!-- Email -->
+    <ion-item lines="full" class="input-item">
+      <ion-icon name="mail" slot="start" color="medium"></ion-icon>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input 
+        type="email" 
+        [(ngModel)]="email" 
+        required
+        placeholder="ejemplo@correo.com"
+        autocomplete="email">
+      </ion-input>
+    </ion-item>
+
+    <!-- Nombre -->
+    <ion-item lines="full" class="input-item">
+      <ion-icon name="person" slot="start" color="medium"></ion-icon>
+      <ion-label position="floating">Nombre completo</ion-label>
+      <ion-input 
+        type="text" 
+        [(ngModel)]="name" 
+        required
+        placeholder="Tu nombre completo"
+        autocomplete="name">
+      </ion-input>
+    </ion-item>
+
+    <!-- Password -->
+    <ion-item lines="full" class="input-item">
+      <ion-icon name="lock-closed" slot="start" color="medium"></ion-icon>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input 
+        type="password" 
+        [(ngModel)]="password" 
+        required
+        placeholder="Mínimo 6 caracteres"
+        autocomplete="new-password">
+      </ion-input>
+    </ion-item>
+
+    <!-- Confirmar Password -->
+    <ion-item lines="full" class="input-item">
+      <ion-icon name="lock-closed" slot="start" color="medium"></ion-icon>
+      <ion-label position="floating">Confirmar Contraseña</ion-label>
+      <ion-input 
+        type="password" 
+        [(ngModel)]="confirmPassword" 
+        required
+        placeholder="Repite tu contraseña"
+        autocomplete="new-password">
+      </ion-input>
+    </ion-item>
+
+    <!-- Información de seguridad -->
+    <ion-card class="info-card">
+      <ion-card-content>
+        <div class="info-header">
+          <ion-icon name="information-circle" color="primary"></ion-icon>
+          <span class="info-title">Información importante</span>
+        </div>
+        <p class="info-text">
+          Esta cuenta tendrá privilegios de administrador y será la única con acceso al sistema.
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button 
+      expand="block" 
+      class="ion-margin-top register-btn" 
+      color="success" 
+      (click)="registerAsAdmin()"
+      [disabled]="!email || !name || !password || !confirmPassword">
+      <ion-icon name="shield-checkmark" slot="start"></ion-icon>
+      Crear Cuenta de Administrador
+    </ion-button>
+
+
+    <div class="login-link ion-text-center ion-margin-top">
+      <p>
+        ¿Ya tienes cuenta?
+        <ion-button fill="clear" size="small" (click)="goToLogin()">
+          <ion-icon name="log-in" slot="start"></ion-icon>
+          Iniciar sesión
+        </ion-button>
+      </p>
+    </div>
+  </div>
+</ion-content>

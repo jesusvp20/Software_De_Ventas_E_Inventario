@@ -1,0 +1,7 @@
+{
+  "name": "inventarioVentas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -10,6 +10,7 @@ export class UserModel implements User {
   isActive?: boolean;
   lastLogin?: Date;
 
+
   constructor(data: Partial<User>) {
     this.uid = data.uid || '';
     this.email = data.email || '';
@@ -20,6 +21,7 @@ export class UserModel implements User {
     this.isActive = data.isActive ?? true;
     this.lastLogin = data.lastLogin ? new Date(data.lastLogin) : undefined;
   }
+  //mauro
 
   // Métodos útiles
   get isAdmin(): boolean {

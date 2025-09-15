@@ -1,6 +1,17 @@
 node_modules
 # Angular cache
 .angular/cache/
+<<<<<<< HEAD
 
 # Next.js cache
 .next/
+=======
+node_modules/
+
+# Next.js build
+.next/
+
+# Archivos de log y entorno
+*.log
+*.env
+>>>>>>> a0672ff (Ignorar archivos de cache de Angular y Next.js y limpiar repo de archivos grandes)

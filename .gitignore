@@ -1,0 +1,6 @@
+node_modules
+# Angular cache
+.angular/cache/
+
+# Next.js cache
+.next/

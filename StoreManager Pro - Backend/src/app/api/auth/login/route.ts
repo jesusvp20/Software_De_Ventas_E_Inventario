@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { AuthService } from '@/services/auth.service';
 import { ApiResponseUtil } from '@/utils/api-response';
 import { AuthRequest } from '@/types';
@@ -21,10 +21,23 @@ export async function POST(request: NextRequest) {
     // Iniciar sesión
     const { user, token } = await AuthService.loginUser(body);
 
-    return ApiResponseUtil.success(
-      { user, token },
-      'Inicio de sesión exitoso'
+    //Proteccion contra Ataques XSS 
+
+    // Crear respuesta y setear cookie httpOnly
+    const response = NextResponse.json(
+      { user }, // No envíes el token en el body
+      { status: 200 }
     );
+    
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      path: '/',
+      maxAge: 60 * 60 * 24, // 1 día
+    });
+
+    return response;
   } catch (error: any) {
     console.error('Error en login:', error);
     
@@ -47,9 +60,10 @@ export async function OPTIONS() {
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'http://localhost:8100',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Credentials': 'true',
     },
   });
 }

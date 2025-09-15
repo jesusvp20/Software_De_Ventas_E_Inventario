@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { AuthService } from '@/services/auth.service';
 import { ApiResponseUtil } from '@/utils/api-response';
 import { RegisterRequest } from '@/types';
@@ -26,11 +26,20 @@ export async function POST(request: NextRequest) {
     // Registrar usuario
     const { user, token } = await AuthService.registerUser(body);
 
-    return ApiResponseUtil.success(
-      { user, token },
-      'Usuario registrado exitosamente',
-      201
-    );
+    // Crear respuesta y setear cookie httpOnly
+    const response = NextResponse.json(
+      { user }, // No envíes el token en el body
+      { status: 201 }
+    )
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      path: '/',
+      maxAge: 60 * 60 * 24, 
+    })
+
+    return response;
   } catch (error: any) {
     console.error('Error en registro:', error);
     
@@ -44,10 +53,11 @@ export async function POST(request: NextRequest) {
 
 // Manejar preflight requests para CORS
 export async function OPTIONS() {
+  const allowedOrigin = "http://localhost:8100"
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowedOrigin, // <-- Usa tu origen real
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },

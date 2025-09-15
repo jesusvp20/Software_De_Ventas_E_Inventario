@@ -106,10 +106,12 @@ export async function DELETE(request: NextRequest, { params }: { params: { uid: 
 
 // Manejar preflight requests para CORS
 export async function OPTIONS() {
+    const allowedOrigin = "http://localhost:8100"
+
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowedOrigin  ,
       'Access-Control-Allow-Methods': 'GET, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },

@@ -22,11 +22,12 @@ export async function GET(request: NextRequest) {
 }
 
 // Manejar preflight requests para CORS
+"http://localhost:8100"
 export async function OPTIONS() {
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin':"http://localhost:8100" ,
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },

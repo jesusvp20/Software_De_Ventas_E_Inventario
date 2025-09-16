@@ -1,8 +1,6 @@
 import { adminAuth, adminDb, isFirebaseConfigured } from '@/lib/firebase-admin';
 import { User, RegisterRequest, AuthRequest } from '@/types';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-
 export class AuthService {
   // Registrar nuevo usuario
   static async registerUser(userData: RegisterRequest): Promise<{ user: User; token: string }> {
